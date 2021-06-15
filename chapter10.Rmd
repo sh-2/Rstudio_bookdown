@@ -1,0 +1,39 @@
+# 発展とその他便利設定 {-}
+
+
+**Rmdのchunkのオプション**  
+chunk（コードを書く場所）にオプションを設定することで、htmlへの出力を変更できる。例えばコードだけを載せたり、結果だけを載せたりすることができる。  
+[R markdown(knitr)パッケージのchunk optionまとめ](https://teramonagi.hatenablog.com/entry/20130615/1371303616)
+
+<br />
+
+**.gitignore**  
+このファイルに書かれたものはgitに管理されなくなり、Githubにアップロードもされない。。Githubには100MB以上のデータをアップできなかったり、月の利用制限があるため、節約のためにもなる。(webサイトを作るくらいでは、そこまで気にしなくてもいい）例えばdocsの中身に影響のないファイルはgitignoreしても良い。  
+[git ignoreを使ってファイルを無視する方法【初心者向け】](https://techacademy.jp/magazine/10179)
+
+<br />
+
+**Git LFS**  
+Git LFSを使えば大きいファイルも一応Githubにアップできる。あまり使わない。(LFS：large files)  
+[Git LFS 2.2.0 released](https://github.blog/2017-06-27-git-lfs-2-2-0-released/)  
+[GitHub に100MB超のファイルを置く -- git push に失敗してからの対処方法](https://qiita.com/kanaya/items/ad52f25da32cb5aa19e6)
+
+<br />
+
+**html widgetsの多用に注意**  
+tmapやmapviewなどhtml widgetを生成するものは複数(種)利用すると、うまくbuildされなくなることがある。また出力されるhtmlファイルが100MBを超えてくることもある。  
+以下の対策を検討  
+
++ clear knitr cache
++ 初めにhtmlwidgets, htmltoolsパッケージを読み込む（効果あるか不明）
++ _bookdown.yml の collapse: subsection や split_by: "section"で出力されるhtmlを細かく分割する
++ 一つのRmd / htmlで何種類も使用しすぎない
+
+<br />
+
+**build, knitに困ったときは**  
+
++ clear knitr cache
++ Rstudio / PCの再起動
++ 新しいプロジェクトを作る（Rmdなどはをコピペ）
++ 表示されたエラーメッセージを調べる

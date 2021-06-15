@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 8 Git &amp; GitHubを中心に共同制作 | bookdownとGithubでWebサイト制作</title>
+  <meta name="description" content="RのbookdownパッケージとGit / Gitbubを使ってWebサイトを共同で制作するための解説です。個人で作る際も参考になると思います。" />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 8 Git &amp; GitHubを中心に共同制作 | bookdownとGithubでWebサイト制作" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="RのbookdownパッケージとGit / Gitbubを使ってWebサイトを共同で制作するための解説です。個人で作る際も参考になると思います。" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 8 Git &amp; GitHubを中心に共同制作 | bookdownとGithubでWebサイト制作" />
+  
+  <meta name="twitter:description" content="RのbookdownパッケージとGit / Gitbubを使ってWebサイトを共同で制作するための解説です。個人で作る際も参考になると思います。" />
+  
+
+<meta name="author" content="Sh-2" />
+
+
+<meta name="date" content="2021-06-15" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="gitgithubの使い方について.html"/>
+<link rel="next" href="branchに関わるエラーと対処法.html"/>
+<script src="libs/header-attrs-2.8/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">bookdownとGithubでWebサイト制作</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>初めに</a></li>
+<li class="chapter" data-level="1" data-path="事前準備.html"><a href="事前準備.html"><i class="fa fa-check"></i><b>1</b> 事前準備</a></li>
+<li class="chapter" data-level="2" data-path="bookdownの準備.html"><a href="bookdownの準備.html"><i class="fa fa-check"></i><b>2</b> bookdownの準備</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="bookdownの準備.html"><a href="bookdownの準備.html#bookdownの環境構築"><i class="fa fa-check"></i><b>2.1</b> bookdownの環境構築</a></li>
+<li class="chapter" data-level="2.2" data-path="bookdownの準備.html"><a href="bookdownの準備.html#bookdownで使用されるファイル"><i class="fa fa-check"></i><b>2.2</b> bookdownで使用されるファイル</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="webページの作成公開.html"><a href="webページの作成公開.html"><i class="fa fa-check"></i><b>3</b> Webページの作成～公開</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="webページの作成公開.html"><a href="webページの作成公開.html#html等を作成"><i class="fa fa-check"></i><b>3.1</b> HTML等を作成</a></li>
+<li class="chapter" data-level="3.2" data-path="webページの作成公開.html"><a href="webページの作成公開.html#git-githubについて"><i class="fa fa-check"></i><b>3.2</b> (Git / Githubについて)</a></li>
+<li class="chapter" data-level="3.3" data-path="webページの作成公開.html"><a href="webページの作成公開.html#githubにアップロード"><i class="fa fa-check"></i><b>3.3</b> GitHubにアップロード</a></li>
+<li class="chapter" data-level="3.4" data-path="webページの作成公開.html"><a href="webページの作成公開.html#今後の更新作業"><i class="fa fa-check"></i><b>3.4</b> 今後の更新作業</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="ページの編集.html"><a href="ページの編集.html"><i class="fa fa-check"></i><b>4</b> ページの編集</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="ページの編集.html"><a href="ページの編集.html#bookdown.yml"><i class="fa fa-check"></i><b>4.1</b> _bookdown.yml</a></li>
+<li class="chapter" data-level="4.2" data-path="ページの編集.html"><a href="ページの編集.html#output.yml"><i class="fa fa-check"></i><b>4.2</b> _output.yml</a></li>
+<li class="chapter" data-level="4.3" data-path="ページの編集.html"><a href="ページの編集.html#rmdファイルrマークダウンファイル"><i class="fa fa-check"></i><b>4.3</b> .Rmdファイル（Rマークダウンファイル）</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="ページの編集.html"><a href="ページの編集.html#index.rmd"><i class="fa fa-check"></i><b>4.3.1</b> index.Rmd</a></li>
+<li class="chapter" data-level="4.3.2" data-path="ページの編集.html"><a href="ページの編集.html#その他rmdファイル"><i class="fa fa-check"></i><b>4.3.2</b> その他Rmdファイル</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="ページの編集.html"><a href="ページの編集.html#build"><i class="fa fa-check"></i><b>4.4</b> Build</a></li>
+<li class="chapter" data-level="4.5" data-path="ページの編集.html"><a href="ページの編集.html#githubへの更新"><i class="fa fa-check"></i><b>4.5</b> GitHubへの更新</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="webサイト共同制作branch無し.html"><a href="webサイト共同制作branch無し.html"><i class="fa fa-check"></i><b>5</b> webサイト共同制作(branch無し)</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="webサイト共同制作branch無し.html"><a href="webサイト共同制作branch無し.html#共同のorganizationを作成する"><i class="fa fa-check"></i><b>5.1</b> 共同のorganizationを作成する</a></li>
+<li class="chapter" data-level="5.2" data-path="webサイト共同制作branch無し.html"><a href="webサイト共同制作branch無し.html#共同でリモートリポジトリを使う初回"><i class="fa fa-check"></i><b>5.2</b> 共同でリモートリポジトリを使う(初回)</a></li>
+<li class="chapter" data-level="5.3" data-path="webサイト共同制作branch無し.html"><a href="webサイト共同制作branch無し.html#共同でリモートリポジトリを使う2回目以降"><i class="fa fa-check"></i><b>5.3</b> 共同でリモートリポジトリを使う(2回目以降)</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="webサイト共同制作branch有り.html"><a href="webサイト共同制作branch有り.html"><i class="fa fa-check"></i><b>6</b> webサイト共同制作(branch有り)</a></li>
+<li class="chapter" data-level="7" data-path="gitgithubの使い方について.html"><a href="gitgithubの使い方について.html"><i class="fa fa-check"></i><b>7</b> Git/GitHubの使い方について</a></li>
+<li class="chapter" data-level="8" data-path="git-githubを中心に共同制作.html"><a href="git-githubを中心に共同制作.html"><i class="fa fa-check"></i><b>8</b> Git &amp; GitHubを中心に共同制作</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="git-githubを中心に共同制作.html"><a href="git-githubを中心に共同制作.html#作業フロー"><i class="fa fa-check"></i><b>8.1</b> 作業フロー</a></li>
+<li class="chapter" data-level="8.2" data-path="git-githubを中心に共同制作.html"><a href="git-githubを中心に共同制作.html#リモートリポジトリを自分の端末にコピー"><i class="fa fa-check"></i><b>8.2</b> リモートリポジトリを自分の端末にコピー</a></li>
+<li class="chapter" data-level="8.3" data-path="git-githubを中心に共同制作.html"><a href="git-githubを中心に共同制作.html#プルリクエスト"><i class="fa fa-check"></i><b>8.3</b> プルリクエスト</a></li>
+<li class="chapter" data-level="8.4" data-path="git-githubを中心に共同制作.html"><a href="git-githubを中心に共同制作.html#マージ"><i class="fa fa-check"></i><b>8.4</b> マージ</a></li>
+<li class="chapter" data-level="8.5" data-path="git-githubを中心に共同制作.html"><a href="git-githubを中心に共同制作.html#作業まとめ"><i class="fa fa-check"></i><b>8.5</b> 作業まとめ</a>
+<ul>
+<li class="chapter" data-level="8.5.1" data-path="git-githubを中心に共同制作.html"><a href="git-githubを中心に共同制作.html#aさんの行動--プルリクエストまで-"><i class="fa fa-check"></i><b>8.5.1</b> Aさんの行動 -プルリクエストまで-</a></li>
+<li class="chapter" data-level="8.5.2" data-path="git-githubを中心に共同制作.html"><a href="git-githubを中心に共同制作.html#リーダーの行動---プルリクエストを受けた後-"><i class="fa fa-check"></i><b>8.5.2</b> リーダーの行動 - プルリクエストを受けた後-</a></li>
+</ul></li>
+<li class="chapter" data-level="8.6" data-path="git-githubを中心に共同制作.html"><a href="git-githubを中心に共同制作.html#プルリクエスト-merge後の追加作業"><i class="fa fa-check"></i><b>8.6</b> プルリクエスト &amp; merge後の追加作業</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="branchに関わるエラーと対処法.html"><a href="branchに関わるエラーと対処法.html"><i class="fa fa-check"></i><b>9</b> branchに関わるエラーと対処法</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="branchに関わるエラーと対処法.html"><a href="branchに関わるエラーと対処法.html#同一地点からのpush"><i class="fa fa-check"></i><b>9.1</b> 同一地点からのpush</a></li>
+<li class="chapter" data-level="9.2" data-path="branchに関わるエラーと対処法.html"><a href="branchに関わるエラーと対処法.html#conflict"><i class="fa fa-check"></i><b>9.2</b> conflict</a></li>
+<li class="chapter" data-level="9.3" data-path="branchに関わるエラーと対処法.html"><a href="branchに関わるエラーと対処法.html#push-fetch-pullが上手くいかないとき"><i class="fa fa-check"></i><b>9.3</b> push, fetch, pullが上手くいかないとき</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="発展とその他便利設定.html"><a href="発展とその他便利設定.html"><i class="fa fa-check"></i>発展とその他便利設定</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">bookdownとGithubでWebサイト制作</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="git-githubを中心に共同制作" class="section level1" number="8">
+<h1><span class="header-section-number">Chapter 8</span> Git &amp; GitHubを中心に共同制作</h1>
+<div id="作業フロー" class="section level2" number="8.1">
+<h2><span class="header-section-number">8.1</span> 作業フロー</h2>
+<p><br />
+以下のように作業環境を設定します。</p>
+<ul>
+<li>master：最終的に完成形となる公開用の本流。リーダーが管理。</li>
+<li>branchA：コンテンツAを作るブランチ。Aさんが担当。</li>
+</ul>
+<p><img src="pics/flow.png" />
+このように各々がブランチで担当コンテンツを作り、完成したらmasterにマージするような流れで行っていきます。</p>
+<p>そもそも何故ブランチを使うかというと、masterに各々がpushしてしまうとそれぞれの編集が被ってpushできなかったり、誤った編集でmasterをダメにしてしまうことを避けるためです。ブランチでの作業はmasterには影響を与えないため、各自編集を行って構いません。</p>
+<p><br /></p>
+</div>
+<div id="リモートリポジトリを自分の端末にコピー" class="section level2" number="8.2">
+<h2><span class="header-section-number">8.2</span> リモートリポジトリを自分の端末にコピー</h2>
+<p>ではAさんを例にとって、Aさん視点で見てみましょう。<br />
+リーダーがリモートリポジトリに、最低限のサイトの枠組みを作りました。これからそのサイトのコンテンツを、Aさんが作っていきます。<br />
+<br />
+まずAさんは自分の端末に、リーダーが作ったリモートリポジトリをコピーしなければなりません。chapter 3と同じように、Githubから共同のリモートリポジトリのURLをコピーします。次にコマンドプロンプトで以下の操作をします。</p>
+<pre><code>cd ~~   #コピーしたい場所まで移動（デスクトップなど）
+git clone リモートリポジトリURL    #リモートリポジトリを丸々自分のPCコピー。</code></pre>
+<p>これでAさんのPCにリーダーの作ったリモートリポジトリがコピーされました。<br />
+次にAさんは、自分が作業するブランチを作ります。</p>
+<pre><code>cd コピーしたフォルダ    #コピーしたリモートリポジトリのフォルダへ移動
+git branch    #今あるブランチと、自分のいるブランチ(＊)を表示
+git branch branchA    #masterからbranchAを分岐させる。(masterにいる状態で実行しましょう)
+git checkout branchA    #branchAに移動。今後はここで編集する。
+git branch    #今いるブランチ(＊)を確認（branchAにいるのか確認。）</code></pre>
+<p><br />
+これでAさんの作業環境が作られました。chapter 4を参考にしながらAさんは担当コンテンツを作ってください。<br />
+Aさんは担当するコンテンツが4章であれば「chapter04」のようなRmdファイルを作って編集し、<code>knit</code>、<code>build</code>、<code>git add .</code>、<code>git commit</code>を行いましょう。このとき自分の関わらないファイルは触らないようにしましょう。他の人との競合が起き、pushがうまくいかなくなることがあり、少々面倒なことになります。<br />
+<br /></p>
+<p>その後、branchAの編集内容をリモートリポジトリにpushします。</p>
+<pre><code>git push origin branchA   #branchAの情報リモートリポジトリにアップロード</code></pre>
+<p>ここまで作業を終えたらGithub上でもbranchAというブランチが確認できます。<br />
+次は、Github上でプルリクエストを行いリーダに内容をチェックしてもらいます。</p>
+</div>
+<div id="プルリクエスト" class="section level2" number="8.3">
+<h2><span class="header-section-number">8.3</span> プルリクエスト</h2>
+<p>Aさんは編集内容のチェックをリーダーから受けます。そのためにGitHubでプルリクエストという機能を使います。<br />
+branchAがpushされた後、GitHubを開くとpull requestを行うボタンが追加されています。押してみましょう。
+<img src="pics/pull%20request.png" />
+<img src="pics/pull%20request%202.png" /></p>
+<p>編集内容についてコメントを残しておき、<strong>Creare pull request</strong>を行いましょう。リーダーが次にGitHubを開いた際、Aさんがpull requstを行ったことが分かるようになります。<br />
+リーダーはプルリクエストに対して、コメントを返すことができ、AさんはリーダーからOKがでるまでコミットを繰り返しましょう。コミットを行うことで自動的にプルリクエストは更新されます。</p>
+<p><br /></p>
+<p>リーダーはプルリクエストのOKを出した後、masterとbranchAのmergeを行います。(次の<strong><a href="git-githubを中心に共同制作.html#マージ">8.4 マージ</a></strong>を参照)<br />
+mergeされたのを確認したら、Aさんはリモートリポジトリの最新情報をローカルリポジトリに持ってきたうえで、不要になったbranchAを削除します。</p>
+<pre><code>git pull origin master   #ローカルをリモートの最新情報に更新</code></pre>
+<pre><code>git checkout master   #masterブランチに移動
+git branch    #branchAの存在、masterにいることを確認
+git branch -d branchA   #branchAの削除
+git branch    #branchAが消えているのか確認</code></pre>
+<p>これでローカル環境にあったbranchAが削除できました。<br />
+mergeされ必要のなくなったブランチを削除することは必ずしも必要な訳ではありません。しかし余分なブランチを残しておくと管理が煩雑になるため、適切なタイミングで消していくことをお勧めします。<br />
+ただし、消す際には十分注意しましょう。もしも間違えてしまった場合は、pushせずに、ローカルのフォルダをすべて消して、<code>git clone</code>をしてやり直すのが良いかもしれません。</p>
+</div>
+<div id="マージ" class="section level2" number="8.4">
+<h2><span class="header-section-number">8.4</span> マージ</h2>
+<p>ここからはリーダー視点です。
+Aさんがプルリクエストを行った後、Github上ではブランチが増え、プルリクエストがあることが示されています。
+<img src="pics/branch01.png" /></p>
+<p>リーダーはpull requestを確認し、もし作業内容に問題がある場合は、コメントをつけてAさんに返事を返すことができます。問題がなくなるまでAさんとやり取りを行いましょう。
+問題がなくなれば、mergeを行います。mergeを行うことでbranchAの情報がmasterブランチに取り込まれます。<br />
+(変更されたファイルは、Files changedから確認できますがbuildを伴うと大量の変化があるためなかなか見切れません。そのため大きな問題がないと思われれば、mergeしてしまっても良いかもしれません。)　　</p>
+<p><br />
+mergeは簡単です。pull requestの画面のしたにある<strong>Merge pull request</strong>、それから<strong>confirm merge</strong>を押すだけです。
+<img src="pics/branch02.png" />
+<br /></p>
+<p>mergeを終えた後、branchAは不要なため削除してしまって構いません。削除する際はブランチを確認したうえで間違えないようにしましょう。<br />
+<br />
+ブランチの削除もGithub上でできます。<strong>Delete branch</strong>を押してください。
+<img src="pics/branch03.png" /></p>
+<p>ブランチの削除を終えたら、リーダーは<code>pull</code>を行い最新のリモートリポジトリの情報をローカルに持ってきます。</p>
+<pre><code>git pull origin master    #リモートのmasterの最新情報をローカルに持ってくる</code></pre>
+<p>追加で必要な作業がある場合は、このようにgit pullをしたうえで、作業をするようにしましょう。</p>
+<p><br /></p>
+<p>もしもbranchAを消す前の状態に戻したいということがあれば、Github上でもう一度プルリクエストの画面に戻ります。<br />
+すると以下のように<strong>Revert</strong>というボタンがあるので押します。これでmergeする前の状態に戻ります。</p>
+<p><img src="pics/branch04.png" />
+この後で<code>git pull origin master</code>を行えば、ローカルリポジトリをリモートと同じ状態にすることができます。</p>
+</div>
+<div id="作業まとめ" class="section level2" number="8.5">
+<h2><span class="header-section-number">8.5</span> 作業まとめ</h2>
+<p>以下にAさんとリーダーの基本作業フローをまとめました。</p>
+<div id="aさんの行動--プルリクエストまで-" class="section level3" number="8.5.1">
+<h3><span class="header-section-number">8.5.1</span> Aさんの行動 -プルリクエストまで-</h3>
+<p>Aさんが共同制作に参加することになったら…</p>
+<pre><code>git clone URL   #共同のリモートリポジトリをローカルにコピー</code></pre>
+<pre><code>git branch branchA    #masterからbranchAを分岐させる
+git checkout branchA    #branchAに移動
+git branch    #今branchAにいるのかをを確認</code></pre>
+<p>branchAでコンテンツAを編集。完成したら<code>knit</code> → <code>Build</code>し…</p>
+<pre><code>git add . 
+git commit -m &quot;コメント&quot;    #編集の確定
+git push origin branchA    #branchAの情報をpush（アップロード）</code></pre>
+<p>ここまで行った後、AさんはGitHub上でリーダーにプルリクエストし一旦終了です。</p>
+<p><br /></p>
+<p>プルリクエストが受理され、branchAがmergeされたのを確認したら…</p>
+<pre><code>git pull origin master    #ローカルをリモートの最新情報に更新</code></pre>
+<pre><code>git checkout master   #masterブランチに移動
+git branch    #branchAの存在、masterにいることを確認
+git branch -d branchA   #branchAの削除
+git branch    #branchAが消えているのか確認</code></pre>
+</div>
+<div id="リーダーの行動---プルリクエストを受けた後-" class="section level3" number="8.5.2">
+<h3><span class="header-section-number">8.5.2</span> リーダーの行動 - プルリクエストを受けた後-</h3>
+<p>GitHub上でbranchAをチェック。問題があればコメントを書いてAに返します。問題がなくなりmasterにマージさせてよい状況であれば、merge pull requestを行います。</p>
+<p><br /></p>
+<p>mergeを終えたらbranchAを削除しましょう。
+そのあとで<code>git pull origin master</code>を行いローカルの情報を、リモートの最新情報に合わせておきましょう。</p>
+</div>
+</div>
+<div id="プルリクエスト-merge後の追加作業" class="section level2" number="8.6">
+<h2><span class="header-section-number">8.6</span> プルリクエスト &amp; merge後の追加作業</h2>
+<p>プルリクエストとmergeを終えた後に追加で作業する場合を説明していきます。<br />
+追加で作業する場合、まずmerge後のリモートリポジトリの最新情報をローカルリポジトリに持ってこなければなりません。<br />
+プルリクエストとmergeはGithub上で実行されています。そのためリーダー、Aさんの二人ともローカル環境に、mergeされた後の情報がないためです。つまり<code>pull</code>を行います。<br />
+(新規に他の人が参加する場合は<a href="git-githubを中心に共同制作.html#リモートリポジトリを自分の端末にコピー">「8.2 リモートリポジトリを自分の端末にコピー」</a>の作業を開始してください。)</p>
+<p><br /></p>
+<pre><code>git pull origin master   </code></pre>
+<p>これでのローカルリポジトリのmasterも最新状態になりました。
+Aさんは再びmasterから新しいブランチを切って、作業を行いプルリクエストを行ってください。</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="gitgithubの使い方について.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="branchに関わるエラーと対処法.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["Rstudio_bookdown.pdf", "Rstudio_bookdown.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

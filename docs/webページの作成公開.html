@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 3 Webページの作成～公開 | bookdownとGithubでWebサイト制作</title>
+  <meta name="description" content="RのbookdownパッケージとGit / Gitbubを使ってWebサイトを共同で制作するための解説です。個人で作る際も参考になると思います。" />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 3 Webページの作成～公開 | bookdownとGithubでWebサイト制作" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="RのbookdownパッケージとGit / Gitbubを使ってWebサイトを共同で制作するための解説です。個人で作る際も参考になると思います。" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 3 Webページの作成～公開 | bookdownとGithubでWebサイト制作" />
+  
+  <meta name="twitter:description" content="RのbookdownパッケージとGit / Gitbubを使ってWebサイトを共同で制作するための解説です。個人で作る際も参考になると思います。" />
+  
+
+<meta name="author" content="Sh-2" />
+
+
+<meta name="date" content="2021-06-15" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="bookdownの準備.html"/>
+<link rel="next" href="ページの編集.html"/>
+<script src="libs/header-attrs-2.8/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">bookdownとGithubでWebサイト制作</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>初めに</a></li>
+<li class="chapter" data-level="1" data-path="事前準備.html"><a href="事前準備.html"><i class="fa fa-check"></i><b>1</b> 事前準備</a></li>
+<li class="chapter" data-level="2" data-path="bookdownの準備.html"><a href="bookdownの準備.html"><i class="fa fa-check"></i><b>2</b> bookdownの準備</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="bookdownの準備.html"><a href="bookdownの準備.html#bookdownの環境構築"><i class="fa fa-check"></i><b>2.1</b> bookdownの環境構築</a></li>
+<li class="chapter" data-level="2.2" data-path="bookdownの準備.html"><a href="bookdownの準備.html#bookdownで使用されるファイル"><i class="fa fa-check"></i><b>2.2</b> bookdownで使用されるファイル</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="webページの作成公開.html"><a href="webページの作成公開.html"><i class="fa fa-check"></i><b>3</b> Webページの作成～公開</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="webページの作成公開.html"><a href="webページの作成公開.html#html等を作成"><i class="fa fa-check"></i><b>3.1</b> HTML等を作成</a></li>
+<li class="chapter" data-level="3.2" data-path="webページの作成公開.html"><a href="webページの作成公開.html#git-githubについて"><i class="fa fa-check"></i><b>3.2</b> (Git / Githubについて)</a></li>
+<li class="chapter" data-level="3.3" data-path="webページの作成公開.html"><a href="webページの作成公開.html#githubにアップロード"><i class="fa fa-check"></i><b>3.3</b> GitHubにアップロード</a></li>
+<li class="chapter" data-level="3.4" data-path="webページの作成公開.html"><a href="webページの作成公開.html#今後の更新作業"><i class="fa fa-check"></i><b>3.4</b> 今後の更新作業</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="ページの編集.html"><a href="ページの編集.html"><i class="fa fa-check"></i><b>4</b> ページの編集</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="ページの編集.html"><a href="ページの編集.html#bookdown.yml"><i class="fa fa-check"></i><b>4.1</b> _bookdown.yml</a></li>
+<li class="chapter" data-level="4.2" data-path="ページの編集.html"><a href="ページの編集.html#output.yml"><i class="fa fa-check"></i><b>4.2</b> _output.yml</a></li>
+<li class="chapter" data-level="4.3" data-path="ページの編集.html"><a href="ページの編集.html#rmdファイルrマークダウンファイル"><i class="fa fa-check"></i><b>4.3</b> .Rmdファイル（Rマークダウンファイル）</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="ページの編集.html"><a href="ページの編集.html#index.rmd"><i class="fa fa-check"></i><b>4.3.1</b> index.Rmd</a></li>
+<li class="chapter" data-level="4.3.2" data-path="ページの編集.html"><a href="ページの編集.html#その他rmdファイル"><i class="fa fa-check"></i><b>4.3.2</b> その他Rmdファイル</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="ページの編集.html"><a href="ページの編集.html#build"><i class="fa fa-check"></i><b>4.4</b> Build</a></li>
+<li class="chapter" data-level="4.5" data-path="ページの編集.html"><a href="ページの編集.html#githubへの更新"><i class="fa fa-check"></i><b>4.5</b> GitHubへの更新</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="webサイト共同制作branch無し.html"><a href="webサイト共同制作branch無し.html"><i class="fa fa-check"></i><b>5</b> webサイト共同制作(branch無し)</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="webサイト共同制作branch無し.html"><a href="webサイト共同制作branch無し.html#共同のorganizationを作成する"><i class="fa fa-check"></i><b>5.1</b> 共同のorganizationを作成する</a></li>
+<li class="chapter" data-level="5.2" data-path="webサイト共同制作branch無し.html"><a href="webサイト共同制作branch無し.html#共同でリモートリポジトリを使う初回"><i class="fa fa-check"></i><b>5.2</b> 共同でリモートリポジトリを使う(初回)</a></li>
+<li class="chapter" data-level="5.3" data-path="webサイト共同制作branch無し.html"><a href="webサイト共同制作branch無し.html#共同でリモートリポジトリを使う2回目以降"><i class="fa fa-check"></i><b>5.3</b> 共同でリモートリポジトリを使う(2回目以降)</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="webサイト共同制作branch有り.html"><a href="webサイト共同制作branch有り.html"><i class="fa fa-check"></i><b>6</b> webサイト共同制作(branch有り)</a></li>
+<li class="chapter" data-level="7" data-path="gitgithubの使い方について.html"><a href="gitgithubの使い方について.html"><i class="fa fa-check"></i><b>7</b> Git/GitHubの使い方について</a></li>
+<li class="chapter" data-level="8" data-path="git-githubを中心に共同制作.html"><a href="git-githubを中心に共同制作.html"><i class="fa fa-check"></i><b>8</b> Git &amp; GitHubを中心に共同制作</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="git-githubを中心に共同制作.html"><a href="git-githubを中心に共同制作.html#作業フロー"><i class="fa fa-check"></i><b>8.1</b> 作業フロー</a></li>
+<li class="chapter" data-level="8.2" data-path="git-githubを中心に共同制作.html"><a href="git-githubを中心に共同制作.html#リモートリポジトリを自分の端末にコピー"><i class="fa fa-check"></i><b>8.2</b> リモートリポジトリを自分の端末にコピー</a></li>
+<li class="chapter" data-level="8.3" data-path="git-githubを中心に共同制作.html"><a href="git-githubを中心に共同制作.html#プルリクエスト"><i class="fa fa-check"></i><b>8.3</b> プルリクエスト</a></li>
+<li class="chapter" data-level="8.4" data-path="git-githubを中心に共同制作.html"><a href="git-githubを中心に共同制作.html#マージ"><i class="fa fa-check"></i><b>8.4</b> マージ</a></li>
+<li class="chapter" data-level="8.5" data-path="git-githubを中心に共同制作.html"><a href="git-githubを中心に共同制作.html#作業まとめ"><i class="fa fa-check"></i><b>8.5</b> 作業まとめ</a>
+<ul>
+<li class="chapter" data-level="8.5.1" data-path="git-githubを中心に共同制作.html"><a href="git-githubを中心に共同制作.html#aさんの行動--プルリクエストまで-"><i class="fa fa-check"></i><b>8.5.1</b> Aさんの行動 -プルリクエストまで-</a></li>
+<li class="chapter" data-level="8.5.2" data-path="git-githubを中心に共同制作.html"><a href="git-githubを中心に共同制作.html#リーダーの行動---プルリクエストを受けた後-"><i class="fa fa-check"></i><b>8.5.2</b> リーダーの行動 - プルリクエストを受けた後-</a></li>
+</ul></li>
+<li class="chapter" data-level="8.6" data-path="git-githubを中心に共同制作.html"><a href="git-githubを中心に共同制作.html#プルリクエスト-merge後の追加作業"><i class="fa fa-check"></i><b>8.6</b> プルリクエスト &amp; merge後の追加作業</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="branchに関わるエラーと対処法.html"><a href="branchに関わるエラーと対処法.html"><i class="fa fa-check"></i><b>9</b> branchに関わるエラーと対処法</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="branchに関わるエラーと対処法.html"><a href="branchに関わるエラーと対処法.html#同一地点からのpush"><i class="fa fa-check"></i><b>9.1</b> 同一地点からのpush</a></li>
+<li class="chapter" data-level="9.2" data-path="branchに関わるエラーと対処法.html"><a href="branchに関わるエラーと対処法.html#conflict"><i class="fa fa-check"></i><b>9.2</b> conflict</a></li>
+<li class="chapter" data-level="9.3" data-path="branchに関わるエラーと対処法.html"><a href="branchに関わるエラーと対処法.html#push-fetch-pullが上手くいかないとき"><i class="fa fa-check"></i><b>9.3</b> push, fetch, pullが上手くいかないとき</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="発展とその他便利設定.html"><a href="発展とその他便利設定.html"><i class="fa fa-check"></i>発展とその他便利設定</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">bookdownとGithubでWebサイト制作</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="webページの作成公開" class="section level1" number="3">
+<h1><span class="header-section-number">Chapter 3</span> Webページの作成～公開</h1>
+<p>webページを立ち上げてみるところまで一気にやってみましょう。</p>
+<div id="html等を作成" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span> HTML等を作成</h2>
+<p>まずは、index.Rmdを開いてknitをしましょう。
+<img src="pics/knit.jpg" alt="project" /></p>
+<p><br /></p>
+<p>すると以下のようなプレビュー画面が現れます。
+<br />
+<img src="pics/preview.jpg" alt="project" />
+これはbookdownで用意されている、webページのテンプレートです。<br />
+プレビューをしているだけなので、まだHTML等の公開に必要なファイルは出来ていません。</p>
+<p><br />
+次にBuildを行います。これでHTML等のファイルが作られます。BuildはRstudioの画面の右上から可能です。<br />
+さっそくBuild Bookをクリックしましょう。
+<img src="pics/build.jpg" alt="build" />
+<br />
+少し待つとBuildが終わり、practiceフォルダの中にdocsというフォルダができていると思います。(chapter 2で出力先を“docs”に指定したため。）　　</p>
+<p><br /></p>
+<p>後はdocsの中身をサーバーに公開すれば、ひとまずwebサイトの完成です。<br />
+「サーバー?」と思った方は心配ご無用です。GitHubがすべてやってくれます。</p>
+</div>
+<div id="git-githubについて" class="section level2" number="3.2">
+<h2><span class="header-section-number">3.2</span> (Git / Githubについて)</h2>
+<p>ここからGitとGitHubを使っていきます。<br />
+Git / Githubについてはchapter 7で取り扱っているので、気になる方はそちらを先にご覧ください。<br />
+chapter 7を読まなくても操作を追うだけで、一応サイトは完成できます。</p>
+</div>
+<div id="githubにアップロード" class="section level2" number="3.3">
+<h2><span class="header-section-number">3.3</span> GitHubにアップロード</h2>
+<p>さて、Gitを使ってみましょう。<br />
+コマンドプロンプトを開いてください。(Git bashでもOKです。)</p>
+<p><br /></p>
+<p>最初に作業を行うpracticeフォルダまで移動します。（このpracticeフォルダは、自分のPC上にあるという意味でローカルリポジトリと呼ばれます。）</p>
+<p>コマンドプロンプト以下のコマンドを打ち。enterを押します。</p>
+<pre><code>cd practiceまでのパス   #ディレクトリを指定先に移動する操作。change directoryの略。</code></pre>
+<p><img src="pics/cd.png" /></p>
+<p><br />
+（chapter 2の操作でpracticeフォルダのGit initを終えているので)<br />
+次にローカルレポジトリでステージングとコミットをします。(Gitに編集を確定させる操作。)<br />
+以下のようにコマンドを打ちます。</p>
+<pre><code>git add .   #ステージング（ファイルの編集をGitが把握。）</code></pre>
+<pre><code>git commit -m &quot;コメント&quot;    #編集の確定。コメントには編集内容などを書いておく。</code></pre>
+<p>これでローカルリポジトリ編集内容が確定しました。(ほぼ編集してませんが。)</p>
+<p><br />
+最後に、GitHubにフォルダをアップロードします。<br />
+まず、GitHubにリモートリポジトリを作ります。このリモートレポジトリにpracticeフォルダをアップロードすることで、その中身を公開できるようになります。
+GitHubにサインインし、緑色のNEWをクリックしましょう。
+<img src="pics/new_repo.jpg" /></p>
+<p><br />
+practiceというリモートレポジトリを作ります。<br />
+（Publicを選択しないとWebサイトは公開できません。）
+<img src="pics/new_repo2.jpg" /></p>
+<p><br /></p>
+<p>作成されたリモートレポジトリのURLをコピーします。(HTTPSを選んだままで構いません。)
+<img src="pics/HTTPS.jpg" />
+<br /></p>
+<p>コマンドプロンプトに戻り、以下のコマンドを打ちます。このコマンドでローカルリポジトリのフォルダがリモートリポジトリにアップロード(push)されます。<br />
+初回のpushのみGitHubのログインを求められます。</p>
+<pre><code>git remote add origin リモートリポジトリのURL    #ローカルとリモートの関連付け</code></pre>
+<pre><code>git push origin master    #リモートへアップロード</code></pre>
+<p><br /></p>
+<p>公開まであと一息です。</p>
+<p><br /></p>
+<p>ここまで終えた後、GitHubのページを更新するとファイルがアップロードされています。<br />
+<img src="pics/Hub1.jpg" alt="hub1" /></p>
+<p><br /></p>
+<p>そしてGitHub上でSettingのページに行き、下にスクロールするとGitHub Pagesの項目があります。<br />
+<code>branch: master</code>、<code>/docs</code>に設定しSaveを押すとURLが発行②されます。
+<img src="pics/Hub2.jpg" /></p>
+<p><br />
+しばらく待つとURL②のページに飛ぶことができます。以上でbookdownを使ったWebページの公開が完了です。<br />
+もししばらく待っても公開ができない場合は、何かミスがあるはずです。</p>
+</div>
+<div id="今後の更新作業" class="section level2" number="3.4">
+<h2><span class="header-section-number">3.4</span> 今後の更新作業</h2>
+<p>一度GitHub Pagesで公開されれば更新は簡単です。<br />
+<br /></p>
+<p>practiceフォルダ内のファイルを編集<br />
+↓<br />
+Bulidを行う<br />
+↓<br />
+コマンドプロンプトで以下のコマンドを打つ。</p>
+<pre><code>git add .</code></pre>
+<pre><code>git commit -m &quot;コメント&quot;</code></pre>
+<pre><code>git push origin master</code></pre>
+<p>これで自動的に更新されます。</p>
+<p><br />
+具体的な編集方法は次のchapterで見ていきます。</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="bookdownの準備.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="ページの編集.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["Rstudio_bookdown.pdf", "Rstudio_bookdown.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

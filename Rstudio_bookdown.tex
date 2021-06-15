@@ -1,0 +1,893 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{book}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={bookdownとGithubでWebサイト制作},
+  pdfauthor={Sh-2},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
+\usepackage{booktabs}
+\ifluatex
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\usepackage[]{natbib}
+\bibliographystyle{apalike}
+
+\title{bookdownとGithubでWebサイト制作}
+\author{Sh-2}
+\date{2021-06-15}
+
+\begin{document}
+\maketitle
+
+{
+\setcounter{tocdepth}{1}
+\tableofcontents
+}
+\hypertarget{ux521dux3081ux306b}{%
+\chapter*{初めに}\label{ux521dux3081ux306b}}
+\addcontentsline{toc}{chapter}{初めに}
+
+Rのbookdownパッケージを使えばWebサイトが作ることができます。このサイトではRstudioとGithubを使って、その方法を説明していきます。\textbf{とりあえずできる}ことを目的として書いており、細かい説明は極力省きました。もしかすると間違い等あるかもしれません。\\
+chapter 4まで読めば、webサイト制作の大枠は分かると思います。それ以降は共同でwebサイトを制作する方法について説明していきます。
+
+このサイト自体がbookdownで作られています。RやRstudioに慣れている人は、このbookdownで簡単にサイトを立ち上げられると思います。\\
+サイトを立ち上げる方法は、他にも色々あるのでこの方法にこだわる必要はありません。
+
+\textbf{想定読者}
+
+\begin{itemize}
+\tightlist
+\item
+  bookdownを使いたい人
+\item
+  webサイトを作ってみたい人
+\item
+  共同でサイトを制作・管理したい人
+\item
+  Git初心者
+\end{itemize}
+
+\textbf{作業環境 2021年3月現在}
+
+\begin{itemize}
+\tightlist
+\item
+  Windows 10 64bit\\
+\item
+  git version 2.30.0\\
+\item
+  R version 4.0.3\\
+\item
+  Rstudio 1.4.1103
+\end{itemize}
+
+\hypertarget{ux4e8bux524dux6e96ux5099}{%
+\chapter{事前準備}\label{ux4e8bux524dux6e96ux5099}}
+
+以下3つのインストールとGitHubの登録をしてください。\\
+インストールの際は、すべてデフォルトでOKです。
+
+\textbf{R}\\
+\url{https://cran.r-project.org/}
+
+\textbf{Rstudio}\\
+\url{https://rstudio.com/products/rstudio/download/}
+
+\textbf{Git}\\
+\url{https://gitforwindows.org/}
+
+\textbf{GitHubの登録}\\
+\url{https://github.com/}
+
+Gitをダウンロードしたら、\textbf{コマンドプロンプト}を起動します。windowsに標準で付属されているので、デスクトップ左下の検索バーに\textbf{「コマンドプロンプト」}と打てば出てくるはずです。\\
+コマンドプロンプトの代わりにGit Bashを利用しても構いません。Git BashはGitをダウンロードした際に付属してきているはずです。\\
+今後よく利用するので、どちらかを起動しやすい場所に置いておくことを薦めます。
+
+Gitは初期設定が必要なので、設定します。\\
+まずGitが正常に動くかどうかを確認します。以下のコマンドを打ちEnterを押し、\textbf{git version \textasciitilde\textasciitilde\textasciitilde{}}と表示されれば問題ありません。
+
+\begin{verbatim}
+git --vesrsion
+\end{verbatim}
+
+\includegraphics{pics/git_version.png}
+
+次に、以下のコマンドを実行してください。ユーザー名とメールアドレスは直接見られることはないため、自分の好きなもので構いません。
+
+\begin{verbatim}
+git config --global user.name "ユーザー名"
+\end{verbatim}
+
+\begin{verbatim}
+git config --global user.email メールアドレス
+\end{verbatim}
+
+これで初期設定は終了です。次に使う時まで、コマンドプロンプトはそのまま閉じて構いません。
+
+\hypertarget{bookdownux306eux6e96ux5099}{%
+\chapter{bookdownの準備}\label{bookdownux306eux6e96ux5099}}
+
+\hypertarget{bookdownux306eux74b0ux5883ux69cbux7bc9}{%
+\section{bookdownの環境構築}\label{bookdownux306eux74b0ux5883ux69cbux7bc9}}
+
+Rstudioを開きます。consoleに\texttt{install.packages("bookdown")}と入力します。（下の画像参照）
+
+\includegraphics{pics/Rstudio_console.jpg}
+エラーがなければ、bookdownがインストールされます。\\
+このbookdownパッケージでWebページなどを簡単に作ることができます。
+
+次にbookdownを利用できるprojectを作ります。画面右上のproject (None)を選択します。
+\includegraphics{pics/project.jpg}
+
+順に\\
+New Project\ldots{}\\
+↓\\
+New Diretory\\
+↓\\
+Bookdown Project using bookdown\\
+を選択。
+
+Directory nameは例として\textbf{practice}とします。(名前は何でも構いません。)\\
+Create project as subdirectory of: はフォルダを置く場所を選択します。デスクトップなど自分の使いやすい場所を選択しましょう。
+
+ここで、このプロジェクトフォルダのGitの設定もしておきます。\\
+画面中央上部のToolsからProject Options\ldots を選びます。
+\includegraphics{pics/git1.jpg}
+
+GIT/SVNのVersion control system:を(None)からGitに変更します。OKを押すとRstudioの再起動を求められるので、再起動させましょう。\\
+（この操作は\texttt{git\ init}と同じような操作です。）
+\includegraphics{pics/git2.jpg}
+
+これで、このpracticeというフォルダはGitの管理下に置かれることになりました。（Gitについてはまだよくわからなくて構いません。）
+
+\hypertarget{bookdownux3067ux4f7fux7528ux3055ux308cux308bux30d5ux30a1ux30a4ux30eb}{%
+\section{bookdownで使用されるファイル}\label{bookdownux3067ux4f7fux7528ux3055ux308cux308bux30d5ux30a1ux30a4ux30eb}}
+
+今、Rstudioの右下の画面には現在のディレクトリ内のフォルダが表示されていると思います。\\
+以下ようなファイルが、practiceプロジェクトに入っています。
+\includegraphics{pics/bookdown_files.jpg}
+これはbookdownがデフォルトで用意してくれるファイルです。これらにWebページの内容や設定を記述することでwebページが作られます。後で中身を書くので、今は特に触る必要がありません。以下に簡単に説明だけしておきます。
+
+\begin{itemize}
+\tightlist
+\item
+  .Rmd:ページの中身になります。
+
+  \begin{itemize}
+  \tightlist
+  \item
+    index.Rmd：サイトのトップページになります。\\
+  \end{itemize}
+\item
+  \_bookdown.ymlと\_output.yml：出力方法や、全体の設定を行います。
+\end{itemize}
+
+後でGitHubでの公開を簡単にするため、以下のように\_bookdown.ymlに記述します。
+
+\begin{verbatim}
+output_dir: "docs"
+\end{verbatim}
+
+（Githubはdocsフォルダの中身をサイトとして公開することができます。今は分からなくてよいので無心で記述してください。）
+\includegraphics{pics/output_docs.jpg}
+
+\hypertarget{webux30daux30fcux30b8ux306eux4f5cux6210ux516cux958b}{%
+\chapter{Webページの作成～公開}\label{webux30daux30fcux30b8ux306eux4f5cux6210ux516cux958b}}
+
+webページを立ち上げてみるところまで一気にやってみましょう。
+
+\hypertarget{htmlux7b49ux3092ux4f5cux6210}{%
+\section{HTML等を作成}\label{htmlux7b49ux3092ux4f5cux6210}}
+
+まずは、index.Rmdを開いてknitをしましょう。
+\includegraphics{pics/knit.jpg}
+
+すると以下のようなプレビュー画面が現れます。
+\includegraphics{pics/preview.jpg}
+これはbookdownで用意されている、webページのテンプレートです。\\
+プレビューをしているだけなので、まだHTML等の公開に必要なファイルは出来ていません。
+
+次にBuildを行います。これでHTML等のファイルが作られます。BuildはRstudioの画面の右上から可能です。\\
+さっそくBuild Bookをクリックしましょう。
+\includegraphics{pics/build.jpg}
+少し待つとBuildが終わり、practiceフォルダの中にdocsというフォルダができていると思います。(chapter 2で出力先を``docs''に指定したため。）　　
+
+後はdocsの中身をサーバーに公開すれば、ひとまずwebサイトの完成です。\\
+「サーバー?」と思った方は心配ご無用です。GitHubがすべてやってくれます。
+
+\hypertarget{git-githubux306bux3064ux3044ux3066}{%
+\section{(Git / Githubについて)}\label{git-githubux306bux3064ux3044ux3066}}
+
+ここからGitとGitHubを使っていきます。\\
+Git / Githubについてはchapter 7で取り扱っているので、気になる方はそちらを先にご覧ください。\\
+chapter 7を読まなくても操作を追うだけで、一応サイトは完成できます。
+
+\hypertarget{githubux306bux30a2ux30c3ux30d7ux30edux30fcux30c9}{%
+\section{GitHubにアップロード}\label{githubux306bux30a2ux30c3ux30d7ux30edux30fcux30c9}}
+
+さて、Gitを使ってみましょう。\\
+コマンドプロンプトを開いてください。(Git bashでもOKです。)
+
+最初に作業を行うpracticeフォルダまで移動します。（このpracticeフォルダは、自分のPC上にあるという意味でローカルリポジトリと呼ばれます。）
+
+コマンドプロンプト以下のコマンドを打ち。enterを押します。
+
+\begin{verbatim}
+cd practiceまでのパス   #ディレクトリを指定先に移動する操作。change directoryの略。
+\end{verbatim}
+
+\includegraphics{pics/cd.png}
+
+（chapter 2の操作でpracticeフォルダのGit initを終えているので)\\
+次にローカルレポジトリでステージングとコミットをします。(Gitに編集を確定させる操作。)\\
+以下のようにコマンドを打ちます。
+
+\begin{verbatim}
+git add .   #ステージング（ファイルの編集をGitが把握。）
+\end{verbatim}
+
+\begin{verbatim}
+git commit -m "コメント"    #編集の確定。コメントには編集内容などを書いておく。
+\end{verbatim}
+
+これでローカルリポジトリ編集内容が確定しました。(ほぼ編集してませんが。)
+
+最後に、GitHubにフォルダをアップロードします。\\
+まず、GitHubにリモートリポジトリを作ります。このリモートレポジトリにpracticeフォルダをアップロードすることで、その中身を公開できるようになります。
+GitHubにサインインし、緑色のNEWをクリックしましょう。
+\includegraphics{pics/new_repo.jpg}
+
+practiceというリモートレポジトリを作ります。\\
+（Publicを選択しないとWebサイトは公開できません。）
+\includegraphics{pics/new_repo2.jpg}
+
+作成されたリモートレポジトリのURLをコピーします。(HTTPSを選んだままで構いません。)
+\includegraphics{pics/HTTPS.jpg}
+
+コマンドプロンプトに戻り、以下のコマンドを打ちます。このコマンドでローカルリポジトリのフォルダがリモートリポジトリにアップロード(push)されます。\\
+初回のpushのみGitHubのログインを求められます。
+
+\begin{verbatim}
+git remote add origin リモートリポジトリのURL    #ローカルとリモートの関連付け
+\end{verbatim}
+
+\begin{verbatim}
+git push origin master    #リモートへアップロード
+\end{verbatim}
+
+公開まであと一息です。
+
+ここまで終えた後、GitHubのページを更新するとファイルがアップロードされています。\\
+\includegraphics{pics/Hub1.jpg}
+
+そしてGitHub上でSettingのページに行き、下にスクロールするとGitHub Pagesの項目があります。\\
+\texttt{branch:\ master}、\texttt{/docs}に設定しSaveを押すとURLが発行②されます。
+\includegraphics{pics/Hub2.jpg}
+
+しばらく待つとURL②のページに飛ぶことができます。以上でbookdownを使ったWebページの公開が完了です。\\
+もししばらく待っても公開ができない場合は、何かミスがあるはずです。
+
+\hypertarget{ux4ecaux5f8cux306eux66f4ux65b0ux4f5cux696d}{%
+\section{今後の更新作業}\label{ux4ecaux5f8cux306eux66f4ux65b0ux4f5cux696d}}
+
+一度GitHub Pagesで公開されれば更新は簡単です。\\
+
+practiceフォルダ内のファイルを編集\\
+↓\\
+Bulidを行う\\
+↓\\
+コマンドプロンプトで以下のコマンドを打つ。
+
+\begin{verbatim}
+git add .
+\end{verbatim}
+
+\begin{verbatim}
+git commit -m "コメント"
+\end{verbatim}
+
+\begin{verbatim}
+git push origin master
+\end{verbatim}
+
+これで自動的に更新されます。
+
+具体的な編集方法は次のchapterで見ていきます。
+
+\hypertarget{ux30daux30fcux30b8ux306eux7de8ux96c6}{%
+\chapter{ページの編集}\label{ux30daux30fcux30b8ux306eux7de8ux96c6}}
+
+このchapterでは、テンプレを書き換えて自分の好きなサイトを作っていきます。
+
+すべて説明しきれないため、あまり深入りせずに簡潔に説明します。詳しくは\textbf{\href{https://bookdown.org/yihui/bookdown/}{公式}}で確認お願いします。\\
+もしくは\textbf{\href{https://github.com/sh-2/Rstudio_bookdown/archive/master.zip}{私のリモートリポジトリ}}から、このサイトのプロジェクトフォルダをダウンロードして、見比べながら作業してみてください。
+
+\hypertarget{bookdown.yml}{%
+\section{\_bookdown.yml}\label{bookdown.yml}}
+
+\texttt{output\_dir:\ "docs"}を追記するだけで構いません。(chapter 2参照)\\
+Githubはdocsというフォルダがあれば、その中身をWebサイトとして公開してくれるため、このように指定しています。
+
+\hypertarget{output.yml}{%
+\section{\_output.yml}\label{output.yml}}
+
+\begin{verbatim}
+bookdown::gitbook:
+  css: style.css
+  config:
+    toc:
+      before: |
+        <li><a href="./">　ここにサイトタイトルを書きます　</a></li>
+      after: |
+        <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+    download: ["pdf", "epub"]
+bookdown::pdf_book:
+  includes:
+    in_header: preamble.tex
+  latex_engine: xelatex
+  citation_package: natbib
+  keep_tex: yes
+bookdown::epub_book: default
+\end{verbatim}
+
+サイトタイトルの部分に好きなタイトルを書きましょう。このサイトだと左上の\textbf{「bookdownとGitHubでWebpage制作」}の位置に当たります。\\
+\_output.ymlでは出力されるhtmlの構成を変える設定などを記述できます。(html widgetを多く使う場合などで、必要になるかもしれません。多くの場合、気にする必要はありません。)
+
+\hypertarget{rmdux30d5ux30a1ux30a4ux30ebrux30deux30fcux30afux30c0ux30a6ux30f3ux30d5ux30a1ux30a4ux30eb}{%
+\section{.Rmdファイル（Rマークダウンファイル）}\label{rmdux30d5ux30a1ux30a4ux30ebrux30deux30fcux30afux30c0ux30a6ux30f3ux30d5ux30a1ux30a4ux30eb}}
+
+Rmdファイルは本文に当たる部分です。マークダウン記法で記入していき、これがbuild時にhtmlに変換されます。
+
+マークダウンの書き方は、検索すれば良いサイトが多くあります。自身で調べてみてください。参考に一つ挙げておきます。\\
+\href{https://qiita.com/kamorits/items/6f342da395ad57468ae3}{Qiita マークダウン記法 一覧表・チートシート}
+
+\hypertarget{index.rmd}{%
+\subsection{index.Rmd}\label{index.rmd}}
+
+このサイトの\textbf{「初めに」}のようなトップページに当たります。\\
+本文はマークダウン記法で記入しますが、index.Rmdのみ\texttt{-\/-\/-}で囲まれた中に設定を書く必要があります。\\
+とはいえ、デフォルトのものを書き換える程度なので、簡単にできます。例としてこのサイトのindex.Rmdを載せておきます。
+
+\begin{verbatim}
+---     この---に囲まれた部分はindexの設定になります。
+title: "bookdownとGithubでWebサイト制作"    タイトル
+author: "Sh-2"    筆者の名前
+date: "2021-06-15"    更新日が自動で取得されます
+site: bookdown::bookdown_site 
+documentclass: book
+bibliography: [book.bib, packages.bib]
+biblio-style: apalike
+link-citations: yes
+description: "RのbookdownパッケージとGit / Gitbubを使ってWebサイトを共同で制作するための解説です。個人で作る際も参考になると思います。"     サイトの説明部分になります。
+---
+
+(ここから下がマークダウン記法で書く本文となります。)
+
+# 初めに {-}
+Rstudioでbookdownパッケージを使ってWebサイトを作る説明書として、このサイトを作りました。**とりあえずできる**ことを目的として書いており、細かい説明は極力省きました。もしかすると間違い等あるかもしれません。  
+chapter 4まで読めば、webサイト制作の大枠は分かると思います。それ以降は共同でwebサイトを制作する方法について説明していきます。
+\end{verbatim}
+
+\hypertarget{ux305dux306eux4ed6rmdux30d5ux30a1ux30a4ux30eb}{%
+\subsection{その他Rmdファイル}\label{ux305dux306eux4ed6rmdux30d5ux30a1ux30a4ux30eb}}
+
+テンプレートの\texttt{01-intro.Rmd}などは消してしまい、自身がわかりやすいRmdファイルを作り直すことをお勧めします。Rstudioの左上から新しいRmdファイルを作ることができます。\\
+(buildする際はRmdの名前順にhtmlが生成されるため、命名には注意してください。ここでは触れませんが\_bookdown.ymlで順番を指定することもできます。)
+
+\includegraphics{pics/newRmd.png}
+
+R markdown\ldots を選択した後、TitleとAuthorを求められますがすぐに消すので、書かなくて構いません。
+
+Rmdファイルが作られると,以下のように色々と書かれていると思いますが、
+\includegraphics{pics/clearRmd.png}
+
+すべて消してください。そして以下のようにチャプタータイトルから書き始めます。
+\includegraphics{pics/Rmd.png}
+
+\texttt{\#\ タイトル}の後にいきなり本文から書き始めて構いません。タイトルの部分がchapter名となり、それ以降が本文となります。\\
+bookdownでレンダリングする際、Rmdファイルは名前順でページになるので、注意してください。
+
+例としてchapter 4のRmdファイルを一部載せます。
+
+\begin{verbatim}
+# ページの編集
+このchapterでは、テンプレを書き換えて自分の好きなサイトを作っていきます。
+
+<br />
+
+すべて説明しきれないため、あまり深入りせずに簡潔に説明します。詳しくは**[公式](https://bookdown.org/yihui/bookdown/)**で確認お願いします。  
+もしくは**[私のリポジトリ](https://github.com/sh-2/Rstudio_bookdown/archive/master.zip)**から、このサイトのプロジェクトフォルダをダウンロードして、見比べながら作業してみてください。
+
+<br />
+
+## _bookdown.yml
+
+`output_dir: "docs"`を追記するだけで構いません。(chapter 2参照)  
+Githubはdocsというフォルダがあれば、その中身をWebサイトとして公開してくれるため、このように指定しています。  
+\end{verbatim}
+
+\hypertarget{build}{%
+\section{Build}\label{build}}
+
+ここまでできれば、あとはBuildするだけです。\\
+knitでプレビューしておき、問題がなければBuild Bookをクリックしましょう。(index.Rmdのknitは必須です。)
+
+\hypertarget{githubux3078ux306eux66f4ux65b0}{%
+\section{GitHubへの更新}\label{githubux3078ux306eux66f4ux65b0}}
+
+重複しますが、以下のコードをコマンドプロンプトで打てば更新されます。Build Bookが完了した後に行いましょう。
+
+\begin{verbatim}
+git add .
+\end{verbatim}
+
+\begin{verbatim}
+git commit -m "コメント"
+\end{verbatim}
+
+\begin{verbatim}
+git push origin master
+\end{verbatim}
+
+pushのあとで、しばらく待ってからサイトを見てみましょう。更新されているはずです。
+
+ここまでで、webサイトの作り方は一通り終わりです。より詳しい設定をする場合、\textbf{\href{https://bookdown.org/yihui/bookdown/}{公式}}などで各自確認願います。特に\_bookdown.ymlや\_output.ymlはまだまだ設定できる項目が多くあります。
+
+これ以降のchapterでは共同でサイトを作っていく方法を紹介して行きます。（ここまででサイトは作ることができるため、必要のない方は以降のchapterを読む必要はありません。）
+
+\hypertarget{webux30b5ux30a4ux30c8ux5171ux540cux5236ux4f5cbranchux7121ux3057}{%
+\chapter{webサイト共同制作(branch無し)}\label{webux30b5ux30a4ux30c8ux5171ux540cux5236ux4f5cbranchux7121ux3057}}
+
+\hypertarget{ux5171ux540cux306eorganizationux3092ux4f5cux6210ux3059ux308b}{%
+\section{共同のorganizationを作成する}\label{ux5171ux540cux306eorganizationux3092ux4f5cux6210ux3059ux308b}}
+
+まずはGitHubで共同でリポジトリを管理できるorganizationを作りましょう。\\
+\includegraphics{pics/organization.png}
+
+次の画面ではFreeのプランを選んでいただいて構いません。
+
+その次はSet up画面です。それぞれ入力してください。\\
+emailはリーダーのアドレスを選択すればよいでしょう。organizationのタイプはpersonal accountで大丈夫です。\\
+\includegraphics{pics/setup.png}
+
+以下の画面で共同制作者を招待します。もしここでできなくても後での招待も可能です。
+\includegraphics{pics/search.png}
+
+次の画面でアンケートのようなものが表示されます。答えても答えなくてもどっちでも大丈夫です。
+
+その後、以下の画面が表示されればorganizationの完成です。
+\includegraphics{pics/organization2.png}
+
+最後に共同で管理するため、設定を行いましょう。
+SettingからMember privilegesを選択し、Base permissionsをwriteに変更しておきましょう。
+\includegraphics{pics/write.png}
+以降、このorganizationの中でリポジトリを作成すると、参加者が共同で使うことができるリモートリポジトリになります。リーダーはこのリモートリポジトリに、bookdownのプロジェクトをアップロード(push)しましょう。
+
+\hypertarget{ux5171ux540cux3067ux30eaux30e2ux30fcux30c8ux30eaux30ddux30b8ux30c8ux30eaux3092ux4f7fux3046ux521dux56de}{%
+\section{共同でリモートリポジトリを使う(初回)}\label{ux5171ux540cux3067ux30eaux30e2ux30fcux30c8ux30eaux30ddux30b8ux30c8ux30eaux3092ux4f7fux3046ux521dux56de}}
+
+共同制作者は、リーダーが作ったリモートリポジトリを自分のローカル環境にも持ってくることで編集することができます。
+
+\begin{verbatim}
+cd パス   #デスクトップなどを作業しやすい場所まで移動
+git clone URL   #URLはリモートのものをコピペ。リポジトリが複製される。
+\end{verbatim}
+
+これでデスクトップ上に、リモートリポジトリのフォルダが複製されます。\\
+このフォルダの中身のRmdなどを編集しましょう。knit, Build Bookを行ったら、pushまで行います。
+
+\begin{verbatim}
+git add .
+git commit -m "コメント"    #他の制作者が分かりやすいコメントが望ましい
+git push origin master
+\end{verbatim}
+
+これで共同のリモートリポジトリに編集内容がアップロードされました。
+
+\hypertarget{ux5171ux540cux3067ux30eaux30e2ux30fcux30c8ux30eaux30ddux30b8ux30c8ux30eaux3092ux4f7fux30462ux56deux76eeux4ee5ux964d}{%
+\section{共同でリモートリポジトリを使う(2回目以降)}\label{ux5171ux540cux3067ux30eaux30e2ux30fcux30c8ux30eaux30ddux30b8ux30c8ux30eaux3092ux4f7fux30462ux56deux76eeux4ee5ux964d}}
+
+共同のリモートリポジトリで他の誰かがpushを行っても、\texttt{git\ clone}で複製されたローカルリポジトリには、その変種内容は反映されません。作業を始める前には必ず、\texttt{git\ pull}を行いましょう。
+
+\begin{verbatim}
+git pull origin master    #リモートの最新情報をローカルに反映
+\end{verbatim}
+
+この後で編集を行いpushしましょう。
+
+共同リモートリポジトリのマスターブランチ(origin master)にアップロードする方法は比較的簡単です。ただし皆が同じブランチを扱うため競合が起きたり、いくつか問題があります。\\
+問題を起こさないためには、pushしたあとは必ずメンバーに伝える。\texttt{pull→push}の一連の流れの中で、他の人のpushがされないようにする。などに注意しましょう。　　
+
+次の章ではbranchを使った共同作業の説明をします。\\
+ここまででも十分、共同でサイトを更新できます。branchの概念は少し難しいので、以降読まなくても大丈夫です。
+
+\hypertarget{webux30b5ux30a4ux30c8ux5171ux540cux5236ux4f5cbranchux6709ux308a}{%
+\chapter{webサイト共同制作(branch有り)}\label{webux30b5ux30a4ux30c8ux5171ux540cux5236ux4f5cbranchux6709ux308a}}
+
+chapter 6 \textasciitilde{} 9ではbranchを用いて、共同でWebサイトを作る方法を解説します。共同でリポジトリを管理できるorganizationを作らなければいけない点は変わらないため、chapter 5を参考にして作っておいてください。 　
+
+chapter 5ではbranchを用いずに共同で作業する方法を説明しました。chapter 5のやり方だと簡単なのですが、マスターブランチにそのまま編集内容が更新されるため、ミスした編集内容が公開される可能性があります。branchを用いると、こういう可能性を減らすことができます。（ただし少し難しくなります。）
+
+Git / Githubにどうしても慣れない場合は、完成したRmdファイルをリーダーに送る or　マスターブランチ(chapter 5の方法)をそのまま更新する、などした方が楽かもしれません。
+
+今回想定している作業の進め方は以下の通りです。
+
+\begin{itemize}
+\tightlist
+\item
+  一つのサイト内に複数コンテンツ（≒chapter）を載せる。
+\item
+  コンテンツごとに作業分担される。
+\item
+  サイト全体を仕上げるリーダー的存在がいる。
+\end{itemize}
+
+要するに、\textbf{コンテンツを持ち寄ってサイトを作る}ような場合です。紹介する方法はwebサイト制作の作業分担の仕方によって変わるため、あくまで参考程度にしてください。
+
+\hypertarget{gitgithubux306eux4f7fux3044ux65b9ux306bux3064ux3044ux3066}{%
+\chapter{Git/GitHubの使い方について}\label{gitgithubux306eux4f7fux3044ux65b9ux306bux3064ux3044ux3066}}
+
+次のChapterから本格的にGitを使っていきます。Gitを使える方は飛ばして構いません。
+
+このページではGitを説明しきれないため、参考の動画を載せておきます。 個人的にGitの大枠を掴むのには良かったと思うものです。branchのことを理解していると、これからの話が分かりやすいです。
+
+Gitをざっくり解説してくれる動画です。↓
+\href{http://www.youtube.com/watch?v=69FE07KnL7Y}{\includegraphics{http://img.youtube.com/vi/69FE07KnL7Y/0.jpg}}
+
+もう少し詳しめの解説動画です。\\
+こちらのbranchの知識が共同作業では必要です。↓
+\href{http://www.youtube.com/watch?v=LDOR5HfI_sQ}{\includegraphics{http://img.youtube.com/vi/LDOR5HfI_sQ/0.jpg}}
+
+\hypertarget{git-githubux3092ux4e2dux5fc3ux306bux5171ux540cux5236ux4f5c}{%
+\chapter{Git \& GitHubを中心に共同制作}\label{git-githubux3092ux4e2dux5fc3ux306bux5171ux540cux5236ux4f5c}}
+
+\hypertarget{ux4f5cux696dux30d5ux30edux30fc}{%
+\section{作業フロー}\label{ux4f5cux696dux30d5ux30edux30fc}}
+
+以下のように作業環境を設定します。
+
+\begin{itemize}
+\tightlist
+\item
+  master：最終的に完成形となる公開用の本流。リーダーが管理。
+\item
+  branchA：コンテンツAを作るブランチ。Aさんが担当。
+\end{itemize}
+
+\includegraphics{pics/flow.png}
+このように各々がブランチで担当コンテンツを作り、完成したらmasterにマージするような流れで行っていきます。
+
+そもそも何故ブランチを使うかというと、masterに各々がpushしてしまうとそれぞれの編集が被ってpushできなかったり、誤った編集でmasterをダメにしてしまうことを避けるためです。ブランチでの作業はmasterには影響を与えないため、各自編集を行って構いません。
+
+\hypertarget{ux30eaux30e2ux30fcux30c8ux30eaux30ddux30b8ux30c8ux30eaux3092ux81eaux5206ux306eux7aefux672bux306bux30b3ux30d4ux30fc}{%
+\section{リモートリポジトリを自分の端末にコピー}\label{ux30eaux30e2ux30fcux30c8ux30eaux30ddux30b8ux30c8ux30eaux3092ux81eaux5206ux306eux7aefux672bux306bux30b3ux30d4ux30fc}}
+
+ではAさんを例にとって、Aさん視点で見てみましょう。\\
+リーダーがリモートリポジトリに、最低限のサイトの枠組みを作りました。これからそのサイトのコンテンツを、Aさんが作っていきます。\\
+まずAさんは自分の端末に、リーダーが作ったリモートリポジトリをコピーしなければなりません。chapter 3と同じように、Githubから共同のリモートリポジトリのURLをコピーします。次にコマンドプロンプトで以下の操作をします。
+
+\begin{verbatim}
+cd ~~   #コピーしたい場所まで移動（デスクトップなど）
+git clone リモートリポジトリURL    #リモートリポジトリを丸々自分のPCコピー。
+\end{verbatim}
+
+これでAさんのPCにリーダーの作ったリモートリポジトリがコピーされました。\\
+次にAさんは、自分が作業するブランチを作ります。
+
+\begin{verbatim}
+cd コピーしたフォルダ    #コピーしたリモートリポジトリのフォルダへ移動
+git branch    #今あるブランチと、自分のいるブランチ(＊)を表示
+git branch branchA    #masterからbranchAを分岐させる。(masterにいる状態で実行しましょう)
+git checkout branchA    #branchAに移動。今後はここで編集する。
+git branch    #今いるブランチ(＊)を確認（branchAにいるのか確認。）
+\end{verbatim}
+
+これでAさんの作業環境が作られました。chapter 4を参考にしながらAさんは担当コンテンツを作ってください。\\
+Aさんは担当するコンテンツが4章であれば「chapter04」のようなRmdファイルを作って編集し、\texttt{knit}、\texttt{build}、\texttt{git\ add\ .}、\texttt{git\ commit}を行いましょう。このとき自分の関わらないファイルは触らないようにしましょう。他の人との競合が起き、pushがうまくいかなくなることがあり、少々面倒なことになります。\\
+
+その後、branchAの編集内容をリモートリポジトリにpushします。
+
+\begin{verbatim}
+git push origin branchA   #branchAの情報リモートリポジトリにアップロード
+\end{verbatim}
+
+ここまで作業を終えたらGithub上でもbranchAというブランチが確認できます。\\
+次は、Github上でプルリクエストを行いリーダに内容をチェックしてもらいます。
+
+\hypertarget{ux30d7ux30ebux30eaux30afux30a8ux30b9ux30c8}{%
+\section{プルリクエスト}\label{ux30d7ux30ebux30eaux30afux30a8ux30b9ux30c8}}
+
+Aさんは編集内容のチェックをリーダーから受けます。そのためにGitHubでプルリクエストという機能を使います。\\
+branchAがpushされた後、GitHubを開くとpull requestを行うボタンが追加されています。押してみましょう。
+\includegraphics{pics/pull request.png}
+\includegraphics{pics/pull request 2.png}
+
+編集内容についてコメントを残しておき、\textbf{Creare pull request}を行いましょう。リーダーが次にGitHubを開いた際、Aさんがpull requstを行ったことが分かるようになります。\\
+リーダーはプルリクエストに対して、コメントを返すことができ、AさんはリーダーからOKがでるまでコミットを繰り返しましょう。コミットを行うことで自動的にプルリクエストは更新されます。
+
+リーダーはプルリクエストのOKを出した後、masterとbranchAのmergeを行います。(次の\textbf{\protect\hyperlink{ux30deux30fcux30b8}{8.4 マージ}}を参照)\\
+mergeされたのを確認したら、Aさんはリモートリポジトリの最新情報をローカルリポジトリに持ってきたうえで、不要になったbranchAを削除します。
+
+\begin{verbatim}
+git pull origin master   #ローカルをリモートの最新情報に更新
+\end{verbatim}
+
+\begin{verbatim}
+git checkout master   #masterブランチに移動
+git branch    #branchAの存在、masterにいることを確認
+git branch -d branchA   #branchAの削除
+git branch    #branchAが消えているのか確認
+\end{verbatim}
+
+これでローカル環境にあったbranchAが削除できました。\\
+mergeされ必要のなくなったブランチを削除することは必ずしも必要な訳ではありません。しかし余分なブランチを残しておくと管理が煩雑になるため、適切なタイミングで消していくことをお勧めします。\\
+ただし、消す際には十分注意しましょう。もしも間違えてしまった場合は、pushせずに、ローカルのフォルダをすべて消して、\texttt{git\ clone}をしてやり直すのが良いかもしれません。
+
+\hypertarget{ux30deux30fcux30b8}{%
+\section{マージ}\label{ux30deux30fcux30b8}}
+
+ここからはリーダー視点です。
+Aさんがプルリクエストを行った後、Github上ではブランチが増え、プルリクエストがあることが示されています。
+\includegraphics{pics/branch01.png}
+
+リーダーはpull requestを確認し、もし作業内容に問題がある場合は、コメントをつけてAさんに返事を返すことができます。問題がなくなるまでAさんとやり取りを行いましょう。
+問題がなくなれば、mergeを行います。mergeを行うことでbranchAの情報がmasterブランチに取り込まれます。\\
+(変更されたファイルは、Files changedから確認できますがbuildを伴うと大量の変化があるためなかなか見切れません。そのため大きな問題がないと思われれば、mergeしてしまっても良いかもしれません。)　　
+
+mergeは簡単です。pull requestの画面のしたにある\textbf{Merge pull request}、それから\textbf{confirm merge}を押すだけです。
+\includegraphics{pics/branch02.png}
+
+mergeを終えた後、branchAは不要なため削除してしまって構いません。削除する際はブランチを確認したうえで間違えないようにしましょう。\\
+ブランチの削除もGithub上でできます。\textbf{Delete branch}を押してください。
+\includegraphics{pics/branch03.png}
+
+ブランチの削除を終えたら、リーダーは\texttt{pull}を行い最新のリモートリポジトリの情報をローカルに持ってきます。
+
+\begin{verbatim}
+git pull origin master    #リモートのmasterの最新情報をローカルに持ってくる
+\end{verbatim}
+
+追加で必要な作業がある場合は、このようにgit pullをしたうえで、作業をするようにしましょう。
+
+もしもbranchAを消す前の状態に戻したいということがあれば、Github上でもう一度プルリクエストの画面に戻ります。\\
+すると以下のように\textbf{Revert}というボタンがあるので押します。これでmergeする前の状態に戻ります。
+
+\includegraphics{pics/branch04.png}
+この後で\texttt{git\ pull\ origin\ master}を行えば、ローカルリポジトリをリモートと同じ状態にすることができます。
+
+\hypertarget{ux4f5cux696dux307eux3068ux3081}{%
+\section{作業まとめ}\label{ux4f5cux696dux307eux3068ux3081}}
+
+以下にAさんとリーダーの基本作業フローをまとめました。
+
+\hypertarget{aux3055ux3093ux306eux884cux52d5--ux30d7ux30ebux30eaux30afux30a8ux30b9ux30c8ux307eux3067-}{%
+\subsection{Aさんの行動 -プルリクエストまで-}\label{aux3055ux3093ux306eux884cux52d5--ux30d7ux30ebux30eaux30afux30a8ux30b9ux30c8ux307eux3067-}}
+
+Aさんが共同制作に参加することになったら\ldots{}
+
+\begin{verbatim}
+git clone URL   #共同のリモートリポジトリをローカルにコピー
+\end{verbatim}
+
+\begin{verbatim}
+git branch branchA    #masterからbranchAを分岐させる
+git checkout branchA    #branchAに移動
+git branch    #今branchAにいるのかをを確認
+\end{verbatim}
+
+branchAでコンテンツAを編集。完成したら\texttt{knit} → \texttt{Build}し\ldots{}
+
+\begin{verbatim}
+git add . 
+git commit -m "コメント"    #編集の確定
+git push origin branchA    #branchAの情報をpush（アップロード）
+\end{verbatim}
+
+ここまで行った後、AさんはGitHub上でリーダーにプルリクエストし一旦終了です。
+
+プルリクエストが受理され、branchAがmergeされたのを確認したら\ldots{}
+
+\begin{verbatim}
+git pull origin master    #ローカルをリモートの最新情報に更新
+\end{verbatim}
+
+\begin{verbatim}
+git checkout master   #masterブランチに移動
+git branch    #branchAの存在、masterにいることを確認
+git branch -d branchA   #branchAの削除
+git branch    #branchAが消えているのか確認
+\end{verbatim}
+
+\hypertarget{ux30eaux30fcux30c0ux30fcux306eux884cux52d5---ux30d7ux30ebux30eaux30afux30a8ux30b9ux30c8ux3092ux53d7ux3051ux305fux5f8c-}{%
+\subsection{リーダーの行動 - プルリクエストを受けた後-}\label{ux30eaux30fcux30c0ux30fcux306eux884cux52d5---ux30d7ux30ebux30eaux30afux30a8ux30b9ux30c8ux3092ux53d7ux3051ux305fux5f8c-}}
+
+GitHub上でbranchAをチェック。問題があればコメントを書いてAに返します。問題がなくなりmasterにマージさせてよい状況であれば、merge pull requestを行います。
+
+mergeを終えたらbranchAを削除しましょう。
+そのあとで\texttt{git\ pull\ origin\ master}を行いローカルの情報を、リモートの最新情報に合わせておきましょう。
+
+\hypertarget{ux30d7ux30ebux30eaux30afux30a8ux30b9ux30c8-mergeux5f8cux306eux8ffdux52a0ux4f5cux696d}{%
+\section{プルリクエスト \& merge後の追加作業}\label{ux30d7ux30ebux30eaux30afux30a8ux30b9ux30c8-mergeux5f8cux306eux8ffdux52a0ux4f5cux696d}}
+
+プルリクエストとmergeを終えた後に追加で作業する場合を説明していきます。\\
+追加で作業する場合、まずmerge後のリモートリポジトリの最新情報をローカルリポジトリに持ってこなければなりません。\\
+プルリクエストとmergeはGithub上で実行されています。そのためリーダー、Aさんの二人ともローカル環境に、mergeされた後の情報がないためです。つまり\texttt{pull}を行います。\\
+(新規に他の人が参加する場合は\protect\hyperlink{ux30eaux30e2ux30fcux30c8ux30eaux30ddux30b8ux30c8ux30eaux3092ux81eaux5206ux306eux7aefux672bux306bux30b3ux30d4ux30fc}{「8.2 リモートリポジトリを自分の端末にコピー」}の作業を開始してください。)
+
+\begin{verbatim}
+git pull origin master   
+\end{verbatim}
+
+これでのローカルリポジトリのmasterも最新状態になりました。
+Aさんは再びmasterから新しいブランチを切って、作業を行いプルリクエストを行ってください。
+
+\hypertarget{branchux306bux95a2ux308fux308bux30a8ux30e9ux30fcux3068ux5bfeux51e6ux6cd5}{%
+\chapter{branchに関わるエラーと対処法}\label{branchux306bux95a2ux308fux308bux30a8ux30e9ux30fcux3068ux5bfeux51e6ux6cd5}}
+
+\hypertarget{ux540cux4e00ux5730ux70b9ux304bux3089ux306epush}{%
+\section{同一地点からのpush}\label{ux540cux4e00ux5730ux70b9ux304bux3089ux306epush}}
+
+同じブランチ内の同じ地点から編集すると、後者のpushが拒否されます。\\
+(ミスブランチという場所で作業したとします。)
+\includegraphics{pics/conflict.png}
+
+この場合、エラーが出て\texttt{fetch\ first}と表記が出ます。後者は、前者のpushした情報をリモートレポジトリからfetch（情報だけを取ってくる）し、自分のローカルリポジトリの編集にマージします。そのあとでpushができるようになります。
+
+後者がエラーに対処するための行動(fetch first)
+
+\begin{verbatim}
+git fetch origin    #リモートの情報だけを取ってくる
+git branch -a   #ローカルとリモートのすべてのブランチを表示して確認
+git checkout ミスブランチ   #ミスブランチに移動
+git merge origin/ミスブランチ    #fetchされた前者のpushを後者自身のローカルにマージ
+\end{verbatim}
+
+ここまで行えば後者もpushすることができます。\\
+（エラーでGit Bashが進めなくなったとき、\textbf{「:wq」}を押すとよいらしいです。）
+
+\hypertarget{conflict}{%
+\section{conflict}\label{conflict}}
+
+共同者がファイルの同じ個所を編集していると、このエラーが発生します。このエラーが発生したときgit側がファイル内のどこがconflictしているのか示してくれます。conflictしている部分には以下のようなものが現れます。
+
+\begin{verbatim}
+<<<<<<<HEAD
+
+A is correct
+
+=======
+
+B is correct
+
+>>>>>>>
+\end{verbatim}
+
+この場合Aが正しいとすれば、手動で\texttt{A\ is\ correct}以外をすべて消します。そうするとpushが可能になります。
+
+\hypertarget{push-fetch-pullux304cux4e0aux624bux304fux3044ux304bux306aux3044ux3068ux304d}{%
+\section{push, fetch, pullが上手くいかないとき}\label{push-fetch-pullux304cux4e0aux624bux304fux3044ux304bux306aux3044ux3068ux304d}}
+
+原因は何らかの競合が発生していることが多いです。なのでローカルの環境をやり直せばたいていうまくいきます。
+
+まずローカルリポジトリのフォルダをすべて消します。(編集したい内容は覚えておくか、必要なファイルのみ移動させて消さずに置いておいて下さい。)\\
+その後
+
+\begin{verbatim}
+git clone リモートリポジトリのURL
+\end{verbatim}
+
+を実行すれば、リモートリポジトリの最新情報がローカルにコピーされるため、push, fetch, pullの際の競合が発生しなくなります。この新しいフォルダで再び編集を行いましょう。
+
+\hypertarget{ux767aux5c55ux3068ux305dux306eux4ed6ux4fbfux5229ux8a2dux5b9a}{%
+\chapter*{発展とその他便利設定}\label{ux767aux5c55ux3068ux305dux306eux4ed6ux4fbfux5229ux8a2dux5b9a}}
+\addcontentsline{toc}{chapter}{発展とその他便利設定}
+
+\textbf{Rmdのchunkのオプション}\\
+chunk（コードを書く場所）にオプションを設定することで、htmlへの出力を変更できる。例えばコードだけを載せたり、結果だけを載せたりすることができる。\\
+\href{https://teramonagi.hatenablog.com/entry/20130615/1371303616}{R markdown(knitr)パッケージのchunk optionまとめ}
+
+\textbf{.gitignore}\\
+このファイルに書かれたものはgitに管理されなくなり、Githubにアップロードもされない。。Githubには100MB以上のデータをアップできなかったり、月の利用制限があるため、節約のためにもなる。(webサイトを作るくらいでは、そこまで気にしなくてもいい）例えばdocsの中身に影響のないファイルはgitignoreしても良い。\\
+\href{https://techacademy.jp/magazine/10179}{git ignoreを使ってファイルを無視する方法【初心者向け】}
+
+\textbf{Git LFS}\\
+Git LFSを使えば大きいファイルも一応Githubにアップできる。あまり使わない。(LFS：large files)\\
+\href{https://github.blog/2017-06-27-git-lfs-2-2-0-released/}{Git LFS 2.2.0 released}\\
+\href{https://qiita.com/kanaya/items/ad52f25da32cb5aa19e6}{GitHub に100MB超のファイルを置く -- git push に失敗してからの対処方法}
+
+\textbf{html widgetsの多用に注意}\\
+tmapやmapviewなどhtml widgetを生成するものは複数(種)利用すると、うまくbuildされなくなることがある。また出力されるhtmlファイルが100MBを超えてくることもある。\\
+以下の対策を検討
+
+\begin{itemize}
+\tightlist
+\item
+  clear knitr cache
+\item
+  初めにhtmlwidgets, htmltoolsパッケージを読み込む（効果あるか不明）
+\item
+  \_bookdown.yml の collapse: subsection や split\_by: ``section''で出力されるhtmlを細かく分割する
+\item
+  一つのRmd / htmlで何種類も使用しすぎない
+\end{itemize}
+
+\textbf{build, knitに困ったときは}
+
+\begin{itemize}
+\tightlist
+\item
+  clear knitr cache
+\item
+  Rstudio / PCの再起動
+\item
+  新しいプロジェクトを作る（Rmdなどはをコピペ）
+\item
+  表示されたエラーメッセージを調べる
+\end{itemize}
+
+  \bibliography{book.bib,packages.bib}
+
+\end{document}

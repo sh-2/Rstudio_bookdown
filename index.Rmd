@@ -1,0 +1,37 @@
+--- 
+title: "bookdownとGithubでWebサイト制作"
+author: "Sh-2"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+documentclass: book
+bibliography: [book.bib, packages.bib]
+biblio-style: apalike
+link-citations: yes
+description: "RのbookdownパッケージとGit / Gitbubを使ってWebサイトを共同で制作するための解説です。個人で作る際も参考になると思います。"
+---
+# 初めに {-}
+Rのbookdownパッケージを使えばWebサイトが作ることができます。このサイトではRstudioとGithubを使って、その方法を説明していきます。**とりあえずできる**ことを目的として書いており、細かい説明は極力省きました。もしかすると間違い等あるかもしれません。  
+chapter 4まで読めば、webサイト制作の大枠は分かると思います。それ以降は共同でwebサイトを制作する方法について説明していきます。
+
+<br />
+
+このサイト自体がbookdownで作られています。RやRstudioに慣れている人は、このbookdownで簡単にサイトを立ち上げられると思います。  
+サイトを立ち上げる方法は、他にも色々あるのでこの方法にこだわる必要はありません。
+
+<br />
+
+**想定読者**  
+
++ bookdownを使いたい人
++ webサイトを作ってみたい人
++ 共同でサイトを制作・管理したい人
++ Git初心者
+
+
+**作業環境 2021年3月現在**  
+
+
+* Windows 10 64bit  
+* git version 2.30.0  
+* R version 4.0.3  
+* Rstudio 1.4.1103  

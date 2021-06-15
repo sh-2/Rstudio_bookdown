@@ -1,0 +1,17 @@
+# Git/GitHubの使い方について
+次のChapterから本格的にGitを使っていきます。Gitを使える方は飛ばして構いません。  
+
+<br />
+
+このページではGitを説明しきれないため、参考の動画を載せておきます。 個人的にGitの大枠を掴むのには良かったと思うものです。branchのことを理解していると、これからの話が分かりやすいです。
+
+<br />
+Gitをざっくり解説してくれる動画です。↓
+[![【プログラミング超入門】GitHubの使い方｜初心者向けにアカウント登録から解説！](http://img.youtube.com/vi/69FE07KnL7Y/0.jpg)](http://www.youtube.com/watch?v=69FE07KnL7Y "【プログラミング超入門】GitHubの使い方｜初心者向けにアカウント登録から解説！")
+
+<br />
+もう少し詳しめの解説動画です。  
+こちらのbranchの知識が共同作業では必要です。↓
+[![【Git入門】Git+Github使い方入門講座🐒Gitの仕組みやブランチの運用ルールまで、開発現場で必要な知識を完全解説！デザイナーやプログラマー必見のGit入門！](http://img.youtube.com/vi/LDOR5HfI_sQ/0.jpg)](http://www.youtube.com/watch?v=LDOR5HfI_sQ "【Git入門】Git+Github使い方入門講座🐒Gitの仕組みやブランチの運用ルールまで、開発現場で必要な知識を完全解説！デザイナーやプログラマー必見のGit入門！")
+
+

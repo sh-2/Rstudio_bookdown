@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 6 webサイト共同制作(branch有り) | bookdownとGithubでWebサイト制作</title>
+  <meta name="description" content="RのbookdownパッケージとGit / Gitbubを使ってWebサイトを共同で制作するための解説です。個人で作る際も参考になると思います。" />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 6 webサイト共同制作(branch有り) | bookdownとGithubでWebサイト制作" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="RのbookdownパッケージとGit / Gitbubを使ってWebサイトを共同で制作するための解説です。個人で作る際も参考になると思います。" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 6 webサイト共同制作(branch有り) | bookdownとGithubでWebサイト制作" />
+  
+  <meta name="twitter:description" content="RのbookdownパッケージとGit / Gitbubを使ってWebサイトを共同で制作するための解説です。個人で作る際も参考になると思います。" />
+  
+
+<meta name="author" content="Sh-2" />
+
+
+<meta name="date" content="2021-06-15" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="webサイト共同制作branch無し.html"/>
+<link rel="next" href="gitgithubの使い方について.html"/>
+<script src="libs/header-attrs-2.8/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">bookdownとGithubでWebサイト制作</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>初めに</a></li>
+<li class="chapter" data-level="1" data-path="事前準備.html"><a href="事前準備.html"><i class="fa fa-check"></i><b>1</b> 事前準備</a></li>
+<li class="chapter" data-level="2" data-path="bookdownの準備.html"><a href="bookdownの準備.html"><i class="fa fa-check"></i><b>2</b> bookdownの準備</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="bookdownの準備.html"><a href="bookdownの準備.html#bookdownの環境構築"><i class="fa fa-check"></i><b>2.1</b> bookdownの環境構築</a></li>
+<li class="chapter" data-level="2.2" data-path="bookdownの準備.html"><a href="bookdownの準備.html#bookdownで使用されるファイル"><i class="fa fa-check"></i><b>2.2</b> bookdownで使用されるファイル</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="webページの作成公開.html"><a href="webページの作成公開.html"><i class="fa fa-check"></i><b>3</b> Webページの作成～公開</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="webページの作成公開.html"><a href="webページの作成公開.html#html等を作成"><i class="fa fa-check"></i><b>3.1</b> HTML等を作成</a></li>
+<li class="chapter" data-level="3.2" data-path="webページの作成公開.html"><a href="webページの作成公開.html#git-githubについて"><i class="fa fa-check"></i><b>3.2</b> (Git / Githubについて)</a></li>
+<li class="chapter" data-level="3.3" data-path="webページの作成公開.html"><a href="webページの作成公開.html#githubにアップロード"><i class="fa fa-check"></i><b>3.3</b> GitHubにアップロード</a></li>
+<li class="chapter" data-level="3.4" data-path="webページの作成公開.html"><a href="webページの作成公開.html#今後の更新作業"><i class="fa fa-check"></i><b>3.4</b> 今後の更新作業</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="ページの編集.html"><a href="ページの編集.html"><i class="fa fa-check"></i><b>4</b> ページの編集</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="ページの編集.html"><a href="ページの編集.html#bookdown.yml"><i class="fa fa-check"></i><b>4.1</b> _bookdown.yml</a></li>
+<li class="chapter" data-level="4.2" data-path="ページの編集.html"><a href="ページの編集.html#output.yml"><i class="fa fa-check"></i><b>4.2</b> _output.yml</a></li>
+<li class="chapter" data-level="4.3" data-path="ページの編集.html"><a href="ページの編集.html#rmdファイルrマークダウンファイル"><i class="fa fa-check"></i><b>4.3</b> .Rmdファイル（Rマークダウンファイル）</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="ページの編集.html"><a href="ページの編集.html#index.rmd"><i class="fa fa-check"></i><b>4.3.1</b> index.Rmd</a></li>
+<li class="chapter" data-level="4.3.2" data-path="ページの編集.html"><a href="ページの編集.html#その他rmdファイル"><i class="fa fa-check"></i><b>4.3.2</b> その他Rmdファイル</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="ページの編集.html"><a href="ページの編集.html#build"><i class="fa fa-check"></i><b>4.4</b> Build</a></li>
+<li class="chapter" data-level="4.5" data-path="ページの編集.html"><a href="ページの編集.html#githubへの更新"><i class="fa fa-check"></i><b>4.5</b> GitHubへの更新</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="webサイト共同制作branch無し.html"><a href="webサイト共同制作branch無し.html"><i class="fa fa-check"></i><b>5</b> webサイト共同制作(branch無し)</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="webサイト共同制作branch無し.html"><a href="webサイト共同制作branch無し.html#共同のorganizationを作成する"><i class="fa fa-check"></i><b>5.1</b> 共同のorganizationを作成する</a></li>
+<li class="chapter" data-level="5.2" data-path="webサイト共同制作branch無し.html"><a href="webサイト共同制作branch無し.html#共同でリモートリポジトリを使う初回"><i class="fa fa-check"></i><b>5.2</b> 共同でリモートリポジトリを使う(初回)</a></li>
+<li class="chapter" data-level="5.3" data-path="webサイト共同制作branch無し.html"><a href="webサイト共同制作branch無し.html#共同でリモートリポジトリを使う2回目以降"><i class="fa fa-check"></i><b>5.3</b> 共同でリモートリポジトリを使う(2回目以降)</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="webサイト共同制作branch有り.html"><a href="webサイト共同制作branch有り.html"><i class="fa fa-check"></i><b>6</b> webサイト共同制作(branch有り)</a></li>
+<li class="chapter" data-level="7" data-path="gitgithubの使い方について.html"><a href="gitgithubの使い方について.html"><i class="fa fa-check"></i><b>7</b> Git/GitHubの使い方について</a></li>
+<li class="chapter" data-level="8" data-path="git-githubを中心に共同制作.html"><a href="git-githubを中心に共同制作.html"><i class="fa fa-check"></i><b>8</b> Git &amp; GitHubを中心に共同制作</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="git-githubを中心に共同制作.html"><a href="git-githubを中心に共同制作.html#作業フロー"><i class="fa fa-check"></i><b>8.1</b> 作業フロー</a></li>
+<li class="chapter" data-level="8.2" data-path="git-githubを中心に共同制作.html"><a href="git-githubを中心に共同制作.html#リモートリポジトリを自分の端末にコピー"><i class="fa fa-check"></i><b>8.2</b> リモートリポジトリを自分の端末にコピー</a></li>
+<li class="chapter" data-level="8.3" data-path="git-githubを中心に共同制作.html"><a href="git-githubを中心に共同制作.html#プルリクエスト"><i class="fa fa-check"></i><b>8.3</b> プルリクエスト</a></li>
+<li class="chapter" data-level="8.4" data-path="git-githubを中心に共同制作.html"><a href="git-githubを中心に共同制作.html#マージ"><i class="fa fa-check"></i><b>8.4</b> マージ</a></li>
+<li class="chapter" data-level="8.5" data-path="git-githubを中心に共同制作.html"><a href="git-githubを中心に共同制作.html#作業まとめ"><i class="fa fa-check"></i><b>8.5</b> 作業まとめ</a>
+<ul>
+<li class="chapter" data-level="8.5.1" data-path="git-githubを中心に共同制作.html"><a href="git-githubを中心に共同制作.html#aさんの行動--プルリクエストまで-"><i class="fa fa-check"></i><b>8.5.1</b> Aさんの行動 -プルリクエストまで-</a></li>
+<li class="chapter" data-level="8.5.2" data-path="git-githubを中心に共同制作.html"><a href="git-githubを中心に共同制作.html#リーダーの行動---プルリクエストを受けた後-"><i class="fa fa-check"></i><b>8.5.2</b> リーダーの行動 - プルリクエストを受けた後-</a></li>
+</ul></li>
+<li class="chapter" data-level="8.6" data-path="git-githubを中心に共同制作.html"><a href="git-githubを中心に共同制作.html#プルリクエスト-merge後の追加作業"><i class="fa fa-check"></i><b>8.6</b> プルリクエスト &amp; merge後の追加作業</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="branchに関わるエラーと対処法.html"><a href="branchに関わるエラーと対処法.html"><i class="fa fa-check"></i><b>9</b> branchに関わるエラーと対処法</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="branchに関わるエラーと対処法.html"><a href="branchに関わるエラーと対処法.html#同一地点からのpush"><i class="fa fa-check"></i><b>9.1</b> 同一地点からのpush</a></li>
+<li class="chapter" data-level="9.2" data-path="branchに関わるエラーと対処法.html"><a href="branchに関わるエラーと対処法.html#conflict"><i class="fa fa-check"></i><b>9.2</b> conflict</a></li>
+<li class="chapter" data-level="9.3" data-path="branchに関わるエラーと対処法.html"><a href="branchに関わるエラーと対処法.html#push-fetch-pullが上手くいかないとき"><i class="fa fa-check"></i><b>9.3</b> push, fetch, pullが上手くいかないとき</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="発展とその他便利設定.html"><a href="発展とその他便利設定.html"><i class="fa fa-check"></i>発展とその他便利設定</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">bookdownとGithubでWebサイト制作</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="webサイト共同制作branch有り" class="section level1" number="6">
+<h1><span class="header-section-number">Chapter 6</span> webサイト共同制作(branch有り)</h1>
+<p>chapter 6 ~ 9ではbranchを用いて、共同でWebサイトを作る方法を解説します。共同でリポジトリを管理できるorganizationを作らなければいけない点は変わらないため、chapter 5を参考にして作っておいてください。 　</p>
+<p><br / ></p>
+<p>chapter 5ではbranchを用いずに共同で作業する方法を説明しました。chapter 5のやり方だと簡単なのですが、マスターブランチにそのまま編集内容が更新されるため、ミスした編集内容が公開される可能性があります。branchを用いると、こういう可能性を減らすことができます。（ただし少し難しくなります。）</p>
+<p>Git / Githubにどうしても慣れない場合は、完成したRmdファイルをリーダーに送る or　マスターブランチ(chapter 5の方法)をそのまま更新する、などした方が楽かもしれません。</p>
+<p><br /></p>
+<p>今回想定している作業の進め方は以下の通りです。</p>
+<ul>
+<li>一つのサイト内に複数コンテンツ（≒chapter）を載せる。</li>
+<li>コンテンツごとに作業分担される。</li>
+<li>サイト全体を仕上げるリーダー的存在がいる。</li>
+</ul>
+<p>要するに、<strong>コンテンツを持ち寄ってサイトを作る</strong>ような場合です。紹介する方法はwebサイト制作の作業分担の仕方によって変わるため、あくまで参考程度にしてください。</p>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="webサイト共同制作branch無し.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="gitgithubの使い方について.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["Rstudio_bookdown.pdf", "Rstudio_bookdown.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
